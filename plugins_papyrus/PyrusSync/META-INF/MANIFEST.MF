@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PyrusSync
+Bundle-SymbolicName: PyrusSync;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: pyrus.sync.Activator
+Require-Bundle: org.eclipse.swt,
+ org.eclipse.jface,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.commands,
+ org.eclipse.ui.workbench,
+ org.eclipse.emf.ecore,
+ org.eclipse.papyrus.infra.core
+Automatic-Module-Name: PyrusSync
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy

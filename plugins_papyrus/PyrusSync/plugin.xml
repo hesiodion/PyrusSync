@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <!-- Déclaration de la commande -->
+   <extension point="org.eclipse.ui.commands">
+      <command
+         id="PyrusSync.commands.ping"
+         name="Ping Serveur PyrusSync"
+         description="Teste la connexion au serveur de collaboration"
+         defaultHandler="pyrus.sync.commands.PingServerHandler">
+      </command>
+   </extension>
+
+   <!-- Bouton dans la toolbar principale -->
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar id="PyrusSync.toolbar">
+            <command
+               commandId="PyrusSync.commands.ping"
+               label="Ping Sync"
+               tooltip="Tester la connexion au serveur PyrusSync"
+               style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
