@@ -128,3 +128,8 @@ package-lock.json
 .eslintcache
 *v8.log
 /lib/
+
+# Papyrus files
+*dist/
+*.metadata
+*.cache
