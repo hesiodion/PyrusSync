@@ -9,7 +9,7 @@
  */
 
 import { buildServer } from './server.js'
-import { saveAllDocs } from './yjsManager.js'
+import { saveAllDocs } from './collab/yjsManager.js'
 
 const HOST = process.env.HOST ?? '127.0.0.1'
 const PORT = parseInt(process.env.PORT ?? '3000', 10)

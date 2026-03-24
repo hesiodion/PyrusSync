@@ -18,14 +18,14 @@
 
 import Fastify from 'fastify'
 import fastifyWebsocket from '@fastify/websocket'
-import { handleYjsConnection } from './yjsWsHandler.js'
-import { getOrCreateDoc, getActiveDocIds } from './yjsManager.js'
+import { handleYjsConnection } from './collab/yjsWsHandler.js'
+import { getOrCreateDoc, getActiveDocIds } from './collab/yjsManager.js'
 import {
   addUser,
   removeUser,
   getUsersForDoc,
   getPresenceSummary,
-} from './presenceManager.js'
+} from './collab/presenceManager.js'
 import { randomUUID } from 'node:crypto'
 
 export async function buildServer() {
