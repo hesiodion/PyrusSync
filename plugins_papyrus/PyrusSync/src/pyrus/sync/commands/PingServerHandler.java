@@ -18,7 +18,7 @@ public class PingServerHandler extends AbstractHandler {
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        // On fait le ping dans un Job Eclipse — jamais bloquer le thread UI
+    	// Start the ping in an Eclipse job to avoid UI thread locking
         Job job = new Job("PyrusSync — ping serveur") {
             @Override
             protected IStatus run(IProgressMonitor monitor) {
@@ -26,20 +26,20 @@ public class PingServerHandler extends AbstractHandler {
                                             .getHttpClient()
                                             .ping();
 
-                // Retour sur le thread UI pour afficher le résultat
+                // Sync display results with the main thread (UI)
                 Display.getDefault().asyncExec(() -> {
                     String url = PyrusSyncPlugin.getInstance().getServerUrl();
                     if (ok) {
                         MessageDialog.openInformation(
                             HandlerUtil.getActiveShell(event),
                             "PyrusSync",
-                            "Serveur joignable ✓\n" + url
+                            "Server reachable\n" + url
                         );
                     } else {
                         MessageDialog.openError(
                             HandlerUtil.getActiveShell(event),
                             "PyrusSync",
-                            "Impossible de joindre le serveur ✗\n" + url
+                            "Server unreachable\n" + url
                         );
                     }
                 });
@@ -48,7 +48,7 @@ public class PingServerHandler extends AbstractHandler {
             }
         };
 
-        job.setUser(true); // affiche une progress bar si ça prend du temps
+        job.setUser(true); // Display progress bar if its too long...
         job.schedule();
 
         return null;

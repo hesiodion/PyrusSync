@@ -3,7 +3,7 @@ package pyrus.sync.model;
 public class UserPresence {
     private String userId;
     private String displayName;
-    private String color;      // couleur attribuée par le serveur
+    private String color;      // Color assigned by the server
     private String location;   // ex : "Class::MyClass"
 
     public UserPresence(String userId, String displayName, String color) {

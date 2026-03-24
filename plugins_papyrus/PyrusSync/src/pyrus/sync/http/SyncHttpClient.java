@@ -26,7 +26,7 @@ public class SyncHttpClient {
                 .build();
     }
 
-    // GET asynchrone — ne bloque pas le thread UI
+    // Asynchronous GET — Avoid UI thread locking
     public CompletableFuture<String> getAsync(String endpoint) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + endpoint))
@@ -38,7 +38,7 @@ public class SyncHttpClient {
                 .thenApply(this::checkResponse);
     }
 
-    // Ping synchrone simple — juste pour tester la connexion
+    // Synchronous ping — simple ping to test the connection
     public boolean ping() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -55,12 +55,12 @@ public class SyncHttpClient {
             return response.statusCode() == 200;
 
         } catch (Exception e) {
-            Activator.logError("Ping échoué : " + baseUrl, e);
+            Activator.logError("Ping failed : " + baseUrl, e);
             return false;
         }
     }
     
-    // POST asynchrone avec body JSON
+    // Asynchronous POST with JSON body
     public CompletableFuture<String> postAsync(String endpoint, String jsonBody) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + endpoint))

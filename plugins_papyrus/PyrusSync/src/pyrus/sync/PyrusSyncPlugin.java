@@ -4,39 +4,39 @@ import pyrus.sync.http.SyncHttpClient;
 
 public class PyrusSyncPlugin {
 
-    private static PyrusSyncPlugin instance;
+    private static PyrusSyncPlugin _instance;
 
-    private SyncHttpClient httpClient;
-    private String serverUrl = Constants.DEFAULT_HOST;
+    private SyncHttpClient _httpClient;
+    private String _serverUrl = Constants.DEFAULT_HOST;
 
     private PyrusSyncPlugin() {}
 
     public static PyrusSyncPlugin getInstance() {
-        if (instance == null) {
-            instance = new PyrusSyncPlugin();
+        if (_instance == null) {
+        	_instance = new PyrusSyncPlugin();
         }
-        return instance;
+        return _instance;
     }
 
     public void initialize() {
-        httpClient = new SyncHttpClient(serverUrl);
-        Activator.log("PyrusSyncPlugin initialisé — serveur : " + serverUrl);
+    	_httpClient = new SyncHttpClient(_serverUrl);
+        Activator.log("PyrusSyncPlugin initialised — server : " + _serverUrl);
     }
 
     public void dispose() {
-        httpClient = null;
+    	_httpClient = null;
     }
 
     public SyncHttpClient getHttpClient() {
-        return httpClient;
+        return _httpClient;
     }
 
-    public String getServerUrl() { return serverUrl; }
+    public String getServerUrl() { return _serverUrl; }
 
     public void setServerUrl(String url) {
-        this.serverUrl = url;
-        if (httpClient != null) {
-            httpClient.setBaseUrl(url);
+        this._serverUrl = url;
+        if (_httpClient != null) {
+        	_httpClient.setBaseUrl(url);
         }
     }
 }
