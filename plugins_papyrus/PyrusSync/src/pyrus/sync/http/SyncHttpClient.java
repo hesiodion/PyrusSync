@@ -23,6 +23,7 @@ public class SyncHttpClient {
     private HttpClient buildClient() {
         return HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(Constants.REQUEST_TIMEOUT))
+                .version(HttpClient.Version.HTTP_1_1)
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class SyncHttpClient {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + endpoint))
                 .header("Content-Type", "application/json")
+                .version(HttpClient.Version.HTTP_1_1)
                 .GET()
                 .build();
 
@@ -44,6 +46,7 @@ public class SyncHttpClient {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl + ApiEndpoints.HEALTH))
                     .timeout(Duration.ofSeconds(5))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .GET()
                     .build();
 
@@ -64,6 +67,7 @@ public class SyncHttpClient {
     public CompletableFuture<String> postAsync(String endpoint, String jsonBody) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(baseUrl + endpoint))
+                .version(HttpClient.Version.HTTP_1_1)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
