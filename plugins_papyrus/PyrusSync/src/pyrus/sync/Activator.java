@@ -19,6 +19,7 @@ public class Activator extends AbstractUIPlugin {
 
     @Override
     public void stop(BundleContext context) throws Exception {
+        log("Closing plugin PyrusSync...");
         PyrusSyncPlugin.getInstance().dispose();
         instance = null;
         super.stop(context);

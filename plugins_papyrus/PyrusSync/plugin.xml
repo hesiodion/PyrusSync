@@ -7,7 +7,7 @@
       <command
          id="PyrusSync.commands.ping"
          name="Ping Serveur PyrusSync"
-         description="Teste la connexion au serveur de collaboration"
+         description="Test the connection to the collaboration server"
          defaultHandler="pyrus.sync.commands.PingServerHandler">
       </command>
    </extension>
@@ -19,7 +19,7 @@
             <command
                commandId="PyrusSync.commands.ping"
                label="Ping Sync"
-               tooltip="Tester la connexion au serveur PyrusSync"
+               tooltip="Testing the connection to the PyrusSync server"
                style="push">
             </command>
          </toolbar>
