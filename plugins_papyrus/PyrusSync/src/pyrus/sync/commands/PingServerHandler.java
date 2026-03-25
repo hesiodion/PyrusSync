@@ -22,6 +22,29 @@ public class PingServerHandler extends AbstractHandler {
         Job job = new Job("PyrusSync — ping serveur") {
             @Override
             protected IStatus run(IProgressMonitor monitor) {
+            	
+            	PyrusSyncPlugin.getInstance()
+                .getHttpClient()
+                .getHealth()
+                .thenAccept(health -> Display.getDefault().asyncExec(() ->
+                    MessageDialog.openInformation(
+                        HandlerUtil.getActiveShell(event),
+                        "PyrusSync",
+                        "Server OK ✓\nUptime : " + health.uptime + "s\n" +
+                        "Active docs : " + health.activeDocs
+                    )
+                ))
+                .exceptionally(e -> {
+                    Display.getDefault().asyncExec(() ->
+                        MessageDialog.openError(
+                            HandlerUtil.getActiveShell(event),
+                            "PyrusSync",
+                            "Server unreachable ✗\n" + e.getMessage()
+                        )
+                    );
+                    return null;
+                });
+            	
                 boolean ok = PyrusSyncPlugin.getInstance()
                                             .getHttpClient()
                                             .ping();

@@ -10,6 +10,14 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
+import pyrus.sync.dto.ConnectedUser;
+import pyrus.sync.dto.DocPresenceResponse;
+import pyrus.sync.dto.DocsResponse;
+import pyrus.sync.dto.HealthResponse;
+
+import java.util.List;
+import java.util.Map;
+
 public class SyncHttpClient {
 
     private HttpClient client;
@@ -74,6 +82,30 @@ public class SyncHttpClient {
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(this::checkResponse);
+    }
+    
+ // GET /health
+    public CompletableFuture<HealthResponse> getHealth() {
+        return getAsync(ApiEndpoints.HEALTH)
+                .thenApply(json -> JsonParser.parse(json, HealthResponse.class));
+    }
+
+    // GET /docs
+    public CompletableFuture<DocsResponse> getDocs() {
+        return getAsync(ApiEndpoints.DOCS)
+                .thenApply(json -> JsonParser.parse(json, DocsResponse.class));
+    }
+
+    // GET /presence
+    public CompletableFuture<Map<String, List<ConnectedUser>>> getPresence() {
+        return getAsync(ApiEndpoints.PRESENCE)
+                .thenApply(JsonParser::parsePresenceSummary);
+    }
+
+    // GET /presence/:docId
+    public CompletableFuture<DocPresenceResponse> getPresenceForDoc(String docId) {
+        return getAsync(ApiEndpoints.presenceForDoc(docId))
+                .thenApply(json -> JsonParser.parse(json, DocPresenceResponse.class));
     }
 
     private String checkResponse(HttpResponse<String> response) {
